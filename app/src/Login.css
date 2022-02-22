@@ -1,0 +1,11 @@
+.main-container {
+    display: flex;
+    justify-content: center;
+}
+
+.login-container {
+    border: 1px solid;
+    padding: 2%;
+    padding-top: 0%;
+    margin-top: 15%;
+}
