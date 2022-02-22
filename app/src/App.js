@@ -9,6 +9,7 @@ function App() {
       <div className="Container">
         <Routes>
           <Route path="/" element={<Login />}/> 
+          {/* How come this Route doesn't need the "exact" prop? */}
           <Route path="/game" element={<Game />}/>
         </Routes>  
       </div>
