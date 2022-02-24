@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "211e9b81-5dff-4197-9328-daa8cb08a3fe": {
+      "ProjectGuid": "211e9b81-5dff-4197-9328-daa8cb08a3fe",
+      "DisplayName": "WordleAPI",
+      "ColorIndex": 0
+    },
+    "9bab20ea-1166-4280-a008-ddcfb66f401f": {
+      "ProjectGuid": "9bab20ea-1166-4280-a008-ddcfb66f401f",
+      "DisplayName": "UserDataAccess",
+      "ColorIndex": 1
+    },
+    "10ab23fb-f9fb-4cca-9a3e-4a5aa9995a2e": {
+      "ProjectGuid": "10ab23fb-f9fb-4cca-9a3e-4a5aa9995a2e",
+      "DisplayName": "UsersDataAccess",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

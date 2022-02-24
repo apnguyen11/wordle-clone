@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31808.319
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleAPI", "WordleAPI\WordleAPI.csproj", "{211E9B81-5DFF-4197-9328-DAA8CB08A3FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordleAPI", "WordleAPI\WordleAPI.csproj", "{211E9B81-5DFF-4197-9328-DAA8CB08A3FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersDataAccess", "UsersDataAccess\UsersDataAccess.csproj", "{10AB23FB-F9FB-4CCA-9A3E-4A5AA9995A2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{211E9B81-5DFF-4197-9328-DAA8CB08A3FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{211E9B81-5DFF-4197-9328-DAA8CB08A3FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{211E9B81-5DFF-4197-9328-DAA8CB08A3FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10AB23FB-F9FB-4CCA-9A3E-4A5AA9995A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10AB23FB-F9FB-4CCA-9A3E-4A5AA9995A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10AB23FB-F9FB-4CCA-9A3E-4A5AA9995A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10AB23FB-F9FB-4CCA-9A3E-4A5AA9995A2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
