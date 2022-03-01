@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "590d37d0-46cf-435c-a259-00652409debc": {
+      "ProjectGuid": "590d37d0-46cf-435c-a259-00652409debc",
+      "DisplayName": "ReactWordle",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
