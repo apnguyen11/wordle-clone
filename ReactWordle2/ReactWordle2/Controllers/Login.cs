@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Microsoft.Data.SqlClient;
 using System.Text.Json;
+using System.Data;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ReactWordle2.Controllers
@@ -24,12 +25,28 @@ namespace ReactWordle2.Controllers
 
         public IActionResult Post(JObject payload)
         {
+            string jsonObj = payload.ToString(Newtonsoft.Json.Formatting.None);
 
-            //string connectionString = @"Server=(LocalDb)\WordleDBDemo;Database=WordleDB;User Id=Test;Password=Test123;";
+            dynamic userObj = JObject.Parse(jsonObj);
+
+            string connectionString = @"Server=(LocalDb)\WordleDBDemo;Database=WordleDB;User Id=Test;Password=Test123;";
+            string query = "SELECT * From users WHERE userName = '" + userObj.userName + "' and password = '" + userObj.password + "'";
+            SqlDataAdapter sda = new SqlDataAdapter(query, connectionString);
+            DataTable dtbl = new DataTable();
+            sda.Fill(dtbl);
+            if(dtbl.Rows.Count == 1)
+            {
+                return Ok(userObj.userName);
+            } else
+            {
+                return Ok("Password is wrong and username is wrong");
+            }
+
 
             //using (SqlConnection conn = new SqlConnection(connectionString))
             //{
             //    conn.Open();
+            //    string query = "SELECT * From users WHERE userName = '" + userObj.userName + "' and password = '" + userObj.password + "'";
             //    using (SqlCommand cmd = new SqlCommand())
             //    {
             //        cmd.Connection = conn;
@@ -48,11 +65,9 @@ namespace ReactWordle2.Controllers
             //    }
             //}
 
-            string jsonObj = JsonSerializer.Serialize(payload);
+    
 
-            var user = JObject.Parse(jsonObj);
-
-            return Ok(user);
+           
         }
 
         class UserObj
