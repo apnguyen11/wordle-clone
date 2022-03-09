@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './Game.css';
+import './Game.css';
 import {stringsToCharactersSet, setDifference, setIntersection} from './Utils';
 
 const Alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -73,8 +73,11 @@ class GameRow extends Component {
 
     render() {
         if (this.props.guess == '') {
-            return this.props.tileStates.map((state, index) => 
-                <span key={index}><GameTile value='' state={state} /></span>
+            return this.props.tileStates.map((state, index) =>
+                (state == GameTileState.Green) ?
+                <span key={index} className="Game-tile-G"><GameTile value='' state={state} /></span>
+                :
+                <span key={index} className="Game-tile-Blank"><GameTile value='' state={state} /></span>
             )
         }
         let gameTiles = []
@@ -85,7 +88,7 @@ class GameRow extends Component {
         }
         console.log(gameTiles)
         return gameTiles.map((gameTile, index) =>
-            <span key={index}>{gameTile}</span>
+            <span key={index} className="Game-tile">{gameTile}</span>
         )
     }
 }
@@ -110,12 +113,12 @@ class GameBoard extends Component {
             ]
             if (i < this.props.guesses.length) {
                 let guess = this.props.guesses[i]
-                let tileStates = computeTileStates(this.props.solution, guess)
+                tileStates = computeTileStates(this.props.solution, guess)
             }
             gameRows.push(<GameRow guess={guess} tileStates={tileStates} />)
         }
         return gameRows.map((gameRow, index) =>
-            <div className='row' key={index}>{gameRow}</div>
+            <div className='row' key={index} className="Game-row">{gameRow}</div>
         )
     }
 }
@@ -139,7 +142,7 @@ class GameInput extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit} >
-                <input type='text' value={this.state.value} onChange={this.handleChange} />
+                <input type='text' value={this.props.value} onChange={this.handleChange} />
                 <input type='submit' value='Submit' />
             </form>
         );
@@ -184,7 +187,6 @@ export class Game extends Component {
     handleInputChange(value) {
         value = value.trim()
         // update the candidate value
-        console.log(value);
         if (value.length > 5) {
             return; // do nothing
         }
@@ -192,8 +194,12 @@ export class Game extends Component {
     }
 
     handleInputSubmit(e) {
-        console.log(e);
+        e.preventDefault(); // what does this do?
         console.log(this.state.candidateValue);
+        if (this.state.candidateValue.length != 5) {
+            alert('Please input exactly 5 letters!');
+            return;
+        }
         if (this.state.guesses.length > 5) {
             alert('You Lose! The solution is ' + this.state.solution);
             return;
@@ -203,27 +209,24 @@ export class Game extends Component {
             // TODO: show/save stats
             return;
         }
-        if (this.state.candidateValue.length != 5) {
-            alert('Please input at exactly 5 letters!');
-            return;
-        }
         // if (setIntersection(
         //         this.getMissedGuessedLetters(),
         //         stringsToCharactersSet([this.state.candidateValue]),
         //     ) != 0
         // ) {
         //     // TODO: maybe make this a warning?
-        //     alert('Your word contains letters that are not in the solution!');
+        //     alert('Your word contains letters that are not in the solution!'); // easy mode
         //     return;
         // }
         // at this point, the candidate value should be guaranteed to be valid but wrong
-        // this.state.guesses.push(this.state.candidateValue)
-        this.setState({
-            guesses: this.state.guesses.concat(this.state.candidateValue),
-            candidateValue: '',
+        this.setState(state => {
+            const guesses = state.guesses.concat(state.candidateValue);
+
+            return {
+                guesses,
+                candidateValue: '',
+            }
         })
-        console.log(this.state.guesses)
-        e.preventDefault();
     }
 
     render() {
@@ -234,6 +237,7 @@ export class Game extends Component {
                     guesses={this.state.guesses}
                 />
                 <GameInput
+                    value={this.state.candidateValue}
                     guesses={this.state.guesses}
                     handleChange={this.handleInputChange}
                     handleSubmit={this.handleInputSubmit}
