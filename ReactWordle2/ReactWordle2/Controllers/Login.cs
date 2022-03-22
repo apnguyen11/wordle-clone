@@ -41,33 +41,7 @@ namespace ReactWordle2.Controllers
             {
                 return Ok("Password is wrong and username is wrong");
             }
-
-
-            //using (SqlConnection conn = new SqlConnection(connectionString))
-            //{
-            //    conn.Open();
-            //    string query = "SELECT * From users WHERE userName = '" + userObj.userName + "' and password = '" + userObj.password + "'";
-            //    using (SqlCommand cmd = new SqlCommand())
-            //    {
-            //        cmd.Connection = conn;
-            //        cmd.CommandText = "SELECT * From users";
-
-            //        SqlDataReader dr = cmd.ExecuteReader();
-
-            //        while (dr.Read())
-            //        {
-            //            string name = dr["userName"].ToString();
-            //            string password = dr["password"].ToString();
-            //            firstName = name;
-            //            Console.WriteLine(name + " " + password);
-            //        }
-            //        dr.Close();
-            //    }
-            //}
-
-    
-
-           
+  
         }
 
         class UserObj
