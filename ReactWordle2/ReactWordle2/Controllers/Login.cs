@@ -29,7 +29,7 @@ namespace ReactWordle2.Controllers
 
             dynamic userObj = JObject.Parse(jsonObj);
 
-            string connectionString = @"Server=(LocalDb)\WordleDBDemo;Database=WordleDB;User Id=Test;Password=Test123;";
+            string connectionString = @"Server=(LocalDb)\WordleDBDemo;Database=WordleDB;User Id=Test;Password=Password123!;";
             string query = "SELECT * From users WHERE userName = '" + userObj.userName + "' and password = '" + userObj.password + "'";
             SqlDataAdapter sda = new SqlDataAdapter(query, connectionString);
             DataTable dtbl = new DataTable();

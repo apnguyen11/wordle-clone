@@ -12,35 +12,37 @@ namespace ReactWordle2.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class Register : Controller
+    public class SaveState : Controller
     {
         [HttpPost]
         public IActionResult Post(JObject payload)
         {
-          
+
             string jsonObj = payload.ToString(Newtonsoft.Json.Formatting.None);
 
             dynamic userObj = JObject.Parse(jsonObj);
 
             string connectionString = @"Server=(LocalDb)\WordleDBDemo;Database=WordleDB;User Id=Test;Password=Password123!;";
-            string query = "SELECT * From users WHERE userName = '" + userObj.userName + "'";
+            string query = "SELECT * From gameStates WHERE userId = '" + userObj.userId + "' and date = '" + userObj.date + "'";
             SqlDataAdapter sda = new SqlDataAdapter(query, connectionString);
             DataTable dtbl = new DataTable();
             sda.Fill(dtbl);
             if (dtbl.Rows.Count == 1)
             {
-                return Ok("Sorry that user already exists!!");
+                return Ok("Sorry you can only play once!");
             }
             else
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string registerQuery = "INSERT INTO users (userName, password) VALUES (@userName, @password)";
+                    string registerQuery = "INSERT INTO gameStates (guesses, score, date, userId) VALUES (@guesses, @score, @date, @userId)";
 
                     using (SqlCommand command = new SqlCommand(registerQuery, connection))
                     {
-                        command.Parameters.Add("@userName", SqlDbType.NChar).Value = userObj.userName;
-                        command.Parameters.Add("@password", SqlDbType.NChar).Value = userObj.password;
+                        command.Parameters.Add("@guesses", SqlDbType.NChar).Value = userObj.guesses;
+                        command.Parameters.Add("@score", SqlDbType.NChar).Value = userObj.score;
+                        command.Parameters.Add("@date", SqlDbType.NChar).Value = userObj.date;
+                        command.Parameters.Add("@userId", SqlDbType.NChar).Value = userObj.userId;
                         connection.Open();
                         int result = command.ExecuteNonQuery();
 
@@ -52,8 +54,8 @@ namespace ReactWordle2.Controllers
 
 
 
-                
-    
+
+
                 return Ok("You can register this user");
             }
 
@@ -63,8 +65,10 @@ namespace ReactWordle2.Controllers
         class UserObj
         {
 
-            public string? userName { get; set; }
-            public string? password { get; set; }
+            public string? guesses { get; set; }
+            public string? score { get; set; }
+            public string? date { get; set; }
+            public string? userId { get; set; }
         }
     }
 }
